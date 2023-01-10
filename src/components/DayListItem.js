@@ -11,10 +11,23 @@ export default function DayListItem(props) {
       "day-list__item--full": props.spots === 0
     });
 
+
+  // Formats the props.spots to return special strings if spots are 1 or below.
+  const formatSpots = () => {
+    if (props.spots === 1) {
+      return '1 spot remaining';
+    } else if (props.spots === 0) {
+      return 'no spots remaining';
+    } else {
+      return (props.spots + ' spots remaining');
+    }
+  };
+  const spots = formatSpots(); // Calls formatSpots function to be passed as prop.
+
   return (
     <li onClick={() => props.setDay(props.name)} className={dayClass}>
       <h2 className="text--regular" >{props.name}</h2>
-      <h3 className="text--light">{props.spots} spots remaining</h3>
+      <h3 className="text--light">{spots}</h3>
     </li>
   );
 }
