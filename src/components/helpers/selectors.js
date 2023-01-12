@@ -5,6 +5,3 @@ export function getAppointmentsForDay(state, day) {
   }
   return filterDays.appointments.map((appID) => state.appointments[appID]);
 }
-
-
-getAppointmentsForDay(state, day);
