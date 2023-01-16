@@ -64,6 +64,15 @@ const Appointment = props => {
         message="Are you sure you want to delete this appointment?"
         onCancel={back}
         onConfirm={deleteInterview} />}
+      {mode === EDIT && (
+        <Form
+          student={props.interview.student}
+          interviewer={props.interview.interviewer.id}
+          interviewers={props.interviewers}
+          onSave={save}
+          onCancel={back}
+        />
+      )}
     </article>
   );
 };
