@@ -9,10 +9,9 @@ import Error from "./Error";
 import { useVisualMode } from "hooks/useVisualMode";
 import "components/Appointment/styles.scss";
 
-
-
 const Appointment = props => {
 
+  // Mode variables //
   const EMPTY = "EMPTY";
   const SHOW = "SHOW";
   const CREATE = "CREATE";
@@ -25,18 +24,19 @@ const Appointment = props => {
 
   const { mode, transition, back } = useVisualMode(props.interview ? SHOW : EMPTY);
 
+  // Save function
   const save = (name, interviewer) => {
     const interview = {
       student: name,
       interviewer
     };
     transition(SAVING, true);
-
     props.bookInterview(props.id, interview)
       .then(() => transition(SHOW))
       .catch((error) => transition(ERROR_SAVE, true));
   };
 
+  // Delete interview Function
   const deleteInterview = () => {
     transition(DELETING, true);
     props.cancelInterview(props.id)

@@ -9,23 +9,26 @@ const useApplicationData = () => {
     interviewers: {}
   });
 
+
   const setDay = day => setState(prev => ({ ...prev, day }));
 
+  const updateSpots = function(state, appointments, day) {
+    let count = 0;
+    const dayObj = state.days.find(d => d.name === day);
 
-  const setSpots = (day, num) => {
-    let dayName = day;
-    let daysArray = state.days;
+    for (const id of dayObj.appointments) {
+      const appt = appointments[id];
 
-    for (let i = 0; i < daysArray.length; i++) {
-      if (daysArray[i].name === dayName) {
-        daysArray[i].spots += num;
+      if (appt.interview === null) {
+        count++;
       }
     }
-    return daysArray;
+    dayObj.spots = count;
+    return dayObj;
   };
 
 
-  const bookInterview = (id, interview) => {
+  function bookInterview(id, interview) {
     const appointment = {
       ...state.appointments[id],
       interview: { ...interview }
@@ -35,15 +38,17 @@ const useApplicationData = () => {
       [id]: appointment
     };
 
+
     return axios.put(`/api/appointments/${id}`, { interview })
       .then(() => {
-        setState({
-          ...state,
-          appointments,
-          days: setSpots(state.day, -1)
-        });
+        const dayObj = updateSpots(state, appointments, state.day);
+        const newDaysArray = [...state.days];
+        newDaysArray[dayObj.id - 1] = dayObj;
+
+        setState({ ...state, appointments });
       });
   };
+
 
   const cancelInterview = id => {
     const appointment = {
@@ -54,14 +59,13 @@ const useApplicationData = () => {
       ...state.appointments,
       [id]: appointment
     };
-
     return axios.delete(`/api/appointments/${id}`)
       .then(() => {
-        setState({
-          ...state,
-          appointments,
-          days: setSpots(state.day, 1)
-        });
+        const dayObj = updateSpots(state, appointments, state.day);
+        const newDaysArray = [...state.days];
+        newDaysArray[dayObj.id - 1] = dayObj;
+
+        setState({ ...state, appointments });
       });
   };
 
