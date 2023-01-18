@@ -8,3 +8,11 @@ The core design / CSS was provided to us as a template, but overall was a great 
 ## Screen Recording of application
 
 !["Screen recording of application working"](https://github.com/Brad-Williams-Dev/scheduler/blob/master/docs/Untitled.mp4)
+
+## Screenshots
+
+![""](https://github.com/Brad-Williams-Dev/scheduler/blob/master/docs/Screenshot%202023-01-18%20at%202.57.34%20PM.png)
+![""](https://github.com/Brad-Williams-Dev/scheduler/blob/master/docs/Screenshot%202023-01-18%20at%202.57.25%20PM.png)
+![""](https://github.com/Brad-Williams-Dev/scheduler/blob/master/docs/Screenshot%202023-01-18%20at%202.57.14%20PM.png)
+![""](https://github.com/Brad-Williams-Dev/scheduler/blob/master/docs/Screenshot%202023-01-18%20at%202.57.00%20PM.png)
+![""](<https://github.com/Brad-Williams-Dev/scheduler/blob/master/docs/Screenshot%202023-01-18%20at%202.56.33%20PM%20(3).png>)
