@@ -79,30 +79,30 @@ describe("Form", () => {
       expect(onSave).toHaveBeenCalledTimes(1);
       expect(onSave).toHaveBeenCalledWith("Lydia Miller-Jones", 1);
     });
-    // it("calls onCancel and resets the input field", () => {
-    //   const onCancel = jest.fn();
-    //   const { getByText, getByPlaceholderText, queryByText } = render(
-    //     <Form
-    //       interviewers={interviewers}
-    //       name="Lydia Mill-Jones"
-    //       onSave={jest.fn()}
-    //       onCancel={onCancel}
-    //     />
-    //   );
+    it("calls onCancel and resets the input field", () => {
+      const onCancel = jest.fn();
+      const { getByText, getByPlaceholderText, queryByText } = render(
+        <Form
+          interviewers={interviewers}
+          name="Lydia Mill-Jones"
+          onSave={jest.fn()}
+          onCancel={onCancel}
+        />
+      );
 
-    //   fireEvent.click(getByText("Save"));
+      fireEvent.click(getByText("Save"));
 
-    //   fireEvent.change(getByPlaceholderText("Enter Student Name"), {
-    //     target: { value: "Lydia Miller-Jones" }
-    //   });
+      fireEvent.change(getByPlaceholderText("Enter Student Name"), {
+        target: { value: "Lydia Miller-Jonest" },
+      });
 
-    //   fireEvent.click(getByText("Cancel"));
+      fireEvent.click(getByText("Cancel"));
 
-    //   expect(queryByText(/student name cannot be blank/i)).toBeNull();
+      expect(queryByText(/student name cannot be blank/i)).toBeInTheDocument();
 
-    //   expect(getByPlaceholderText("Enter Student Name")).toHaveValue("");
+      expect(getByPlaceholderText("Enter Student Name")).toHaveValue("");
 
-    //   expect(onCancel).toHaveBeenCalledTimes(1);
-    // });
+      expect(onCancel).toHaveBeenCalledTimes(1);
+    });
   });
 });
