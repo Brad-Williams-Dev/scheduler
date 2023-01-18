@@ -11,6 +11,20 @@ const useApplicationData = () => {
 
   const setDay = day => setState(prev => ({ ...prev, day }));
 
+
+  const setSpots = (day, num) => {
+    let dayName = day;
+    let daysArray = state.days;
+
+    for (let i = 0; i < daysArray.length; i++) {
+      if (daysArray[i].name === dayName) {
+        daysArray[i].spots += num;
+      }
+    }
+    return daysArray;
+  };
+
+
   const bookInterview = (id, interview) => {
     const appointment = {
       ...state.appointments[id],
@@ -21,26 +35,12 @@ const useApplicationData = () => {
       [id]: appointment
     };
 
-
-    //Create a new array, then creates a new object for each of the elements
-    const days = [...state.days].map(day => (
-      { ...day }
-    ));
-    // Filter the days array to find the day object that matches the state.day
-    const spots = days.filter((day) => state.day === day.name)[0];
-    // Checks if that appointment id does not have a interview scheduled and if so, 
-    // subtracts 1 from the spots
-    if (!state.appointments[id].interview) {
-      spots.spots--;
-    };
-
-
     return axios.put(`/api/appointments/${id}`, { interview })
       .then(() => {
         setState({
           ...state,
           appointments,
-          days
+          days: setSpots(state.day, -1)
         });
       });
   };
@@ -55,20 +55,12 @@ const useApplicationData = () => {
       [id]: appointment
     };
 
-
-    //Creates a copy of the state array 
-    const days = [...state.days];
-
-    // Filters it to only include days where the state.day is equal to name. Then it adds 1 to the spots.
-    const spots = days.filter((day) => state.day === day.name)[0];
-    spots.spots++;
-
     return axios.delete(`/api/appointments/${id}`)
       .then(() => {
         setState({
           ...state,
           appointments,
-          days
+          days: setSpots(state.day, 1)
         });
       });
   };
